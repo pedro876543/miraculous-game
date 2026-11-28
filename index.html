@@ -644,6 +644,19 @@ body.menu-open .jw-chip, body.busy .jw-chip, body.dream-view .jw-chip { opacity:
 .jb-exit { flex: none; padding: 8px 14px; border-radius: 99px; font-size: 13px; font-weight: 800; color: #3b0764; background: linear-gradient(135deg, #fde68a, #f9a8d4); }
 body.dream-view .hud, body.dream-view #minimap-wrap, body.dream-view #joystick, body.dream-view .gh-acts { opacity: 0; pointer-events: none !important; }
 
+/* ---------- Poder 17 — Migração ---------- */
+#menu-migration.sheet.modal { top: 50%; left: 50%; right: auto; bottom: auto; transform: translate(-50%, -50%); width: min(400px, calc(100vw - 24px)); height: auto; max-height: calc(100vh - 24px); animation: fadeIn 0.22s ease-out;
+  background: radial-gradient(circle at 80% 0%, rgba(56, 189, 248, 0.22), transparent 55%), linear-gradient(170deg, rgba(6, 46, 52, 0.97), rgba(8, 24, 40, 0.97)); border: 1.5px solid rgba(45, 212, 191, 0.8); box-shadow: 0 16px 50px rgba(0, 0, 0, 0.55), 0 0 30px rgba(45, 212, 191, 0.25); }
+.mg-mark svg, .mg-ico svg { color: #2dd4bf; filter: drop-shadow(0 0 8px rgba(45, 212, 191, 0.75)); }
+.mg-body { overflow-y: auto; max-height: calc(100vh - 130px); }
+.mg-head { font-size: 12px; color: #99f6e4; margin: 2px 2px 4px; }
+.mg-empty { font-size: 13px; color: var(--ink-dim); padding: 10px 4px; }
+.mg-item { padding: 9px 12px; }
+.mg-card:disabled { opacity: 0.5; }
+.mg-pill { position: fixed; top: calc(env(safe-area-inset-top, 0px) + 8px); left: 50%; transform: translateX(-50%); z-index: 40; display: flex; align-items: center; gap: 8px; padding: 4px 6px 4px 12px; border-radius: 999px; font: 700 12px/1.2 system-ui, sans-serif; color: #ccfbf1; background: rgba(6, 40, 44, 0.85); border: 1px solid rgba(94, 234, 212, 0.7); }
+.mg-pill[hidden] { display: none; }
+.mg-pill button { padding: 5px 10px; border-radius: 99px; font-size: 12px; font-weight: 800; color: #042f2e; background: linear-gradient(135deg, #99f6e4, #fde68a); }
+
 /* ---------- Poder 14 — Intuição ---------- */
 #menu-intuition.sheet.modal { top: 50%; left: 50%; right: auto; bottom: auto; transform: translate(-50%, -50%); width: min(400px, calc(100vw - 24px)); height: auto; max-height: calc(100vh - 24px); animation: fadeIn 0.22s ease-out;
   background: radial-gradient(circle at 80% 0%, rgba(45, 212, 191, 0.25), transparent 55%), linear-gradient(170deg, rgba(8, 44, 48, 0.97), rgba(6, 20, 30, 0.97)); border: 1.5px solid rgba(94, 234, 212, 0.75); box-shadow: 0 16px 50px rgba(0, 0, 0, 0.55), 0 0 30px rgba(45, 212, 191, 0.22); }
@@ -722,6 +735,7 @@ body.ad-aiming #game { cursor: crosshair; }
 .ms-title small { display: block; font-size: 13px; letter-spacing: 0.5em; text-transform: uppercase; color: #ffd6e8; }
 .ms-title h1 { margin: 4px 0 6px; font-size: clamp(38px, 8vw, 64px); font-weight: 900; letter-spacing: 0.02em; background: linear-gradient(180deg, #fff6d8, #ffd54a 55%, #f59e0b); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 2px 0 rgba(90, 30, 80, 0.6)); }
 .ms-title p { margin: 0; font-size: 14px; color: #fde7f3; }
+.ms-credits { margin: 6px 0 0; font-size: 12px; opacity: .7; text-align: center; letter-spacing: .3px; }
 .ms-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 100%; }
 .ms-card { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 20px 18px 16px; border-radius: 22px; text-align: center; color: #fff; cursor: pointer; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: transform 0.18s, box-shadow 0.2s; }
 .ms-card:hover { transform: translateY(-4px); }
@@ -936,6 +950,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
     <div id="menu-pretension" class="sheet modal pro-sheet pt-sheet" hidden></div>
     <div id="menu-evolution" class="sheet modal pro-sheet ev-sheet" hidden></div>
     <div id="menu-adoration" class="sheet modal pro-sheet ad-sheet" hidden></div>
+    <div id="menu-migration" class="sheet modal pro-sheet mg-sheet" hidden></div>
     <div id="menu-brpower" class="sheet modal pro-sheet" hidden></div>
     <div id="radial" hidden></div>
     <div id="toast" role="status" aria-live="polite"></div>
@@ -1203,7 +1218,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
   function showStart(onPick) {
     const el = document.createElement('div');
     el.id = 'mode-screen';
-    el.innerHTML = '<div class="ms-stars"></div>' + SKY + '<div class="ms-box"><div class="ms-title"><small>Paris</small><h1>Anel Mágico</h1><p>Escolha como quer viver esta aventura</p></div><div class="ms-cards"></div></div>';
+    el.innerHTML = '<div class="ms-stars"></div>' + SKY + '<div class="ms-box"><div class="ms-title"><small>Paris</small><h1>Anel Mágico</h1><p>Escolha como quer viver esta aventura</p></div><div class="ms-cards"></div><p class="ms-credits">Feito por Pedro Henrique de Lima</p></div>';
     const cards = el.querySelector('.ms-cards');
     const rp = card('roleplay', '✨', 'ROLEPLAY', 'Viva livremente em Paris, explore a cidade, interaja com personagens e utilize os poderes das joias.', 'Modo livre');
     const bt = card('batalha', '⚔️', 'BATALHA', 'Entre em uma aventura com uma campanha própria, ameaças, missões e confrontos que serão implementados nas próximas atualizações.', 'Campanha');
@@ -9560,22 +9575,25 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
 /* PODER 12 — EVOLUÇÃO: lógica, definição e interface no script "PODER 12 — EVOLUÇÃO" (mais abaixo). */
 </script>
   <script>
-/* PODER 13 — espaço reservado, ainda NÃO implementado.
-   Para criar o poder: preencha os campos abaixo e mude implemented para true. */
+/* PODER 13 — PAIXÃO (joia 13): DESBLOQUEADA, mas por enquanto só a transformação visual (traje de bode).
+   Nenhuma habilidade foi definida: ao usar, o jogo apenas avisa. Quando os poderes forem criados, basta preencher
+   activate/description abaixo e remover o espaço de G.Powerless. */
 (function (G) {
   'use strict';
+  G.Powerless = G.Powerless || {};
+  G.Powerless[13] = 1;
   G.Powers.define(13, {
-    name: null,            // ex.: 'Nome do poder'
-    description: null,     // texto mostrado no menu
-    icon: null,            // emoji, caminho de imagem ou null
-    animation: null,       // gancho para animação do personagem
-    vfx: null,             // gancho para efeito visual
-    sfx: null,             // gancho para som
-    cooldown: 0,           // recarga em segundos
-    key: null,             // atalho de teclado, ex.: 'Digit3'
-    implemented: false,
+    name: 'Paixão',
+    description: 'Joia desbloqueada: por enquanto só a transformação visual. Os poderes ainda serão criados.',
+    icon: '❤️‍🔥',
+    animation: null,
+    vfx: null,
+    sfx: null,
+    cooldown: 0,
+    key: null,
+    implemented: true,
     canUse: null,
-    activate: null         // function (ctx) { ... }
+    activate: function () { G.Dom.toast('Paixão: por enquanto só a transformação visual. Os poderes virão depois.'); }
   });
 })(window.Game = window.Game || {});
 
@@ -9885,43 +9903,29 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
 
 </script>
   <script>
-/* PODER 17 — espaço reservado, ainda NÃO implementado.
-   Para criar o poder: preencha os campos abaixo e mude implemented para true. */
-(function (G) {
-  'use strict';
-  G.Powers.define(17, {
-    name: null,            // ex.: 'Nome do poder'
-    description: null,     // texto mostrado no menu
-    icon: null,            // emoji, caminho de imagem ou null
-    animation: null,       // gancho para animação do personagem
-    vfx: null,             // gancho para efeito visual
-    sfx: null,             // gancho para som
-    cooldown: 0,           // recarga em segundos
-    key: null,             // atalho de teclado, ex.: 'Digit7'
-    implemented: false,
-    canUse: null,
-    activate: null         // function (ctx) { ... }
-  });
-})(window.Game = window.Game || {});
+/* PODER 17 — MIGRAÇÃO: lógica, definição e interface no script "PODER 17 — MIGRAÇÃO" (mais abaixo). */
 
 </script>
   <script>
-/* PODER 18 — espaço reservado, ainda NÃO implementado.
-   Para criar o poder: preencha os campos abaixo e mude implemented para true. */
+/* PODER 18 — ZOMBARIA (joia 18): DESBLOQUEADA, mas por enquanto só a transformação visual (traje de macaco).
+   Nenhuma habilidade foi definida: ao usar, o jogo apenas avisa. Quando os poderes forem criados, basta preencher
+   activate/description abaixo e remover o espaço de G.Powerless. */
 (function (G) {
   'use strict';
+  G.Powerless = G.Powerless || {};
+  G.Powerless[18] = 1;
   G.Powers.define(18, {
-    name: null,            // ex.: 'Nome do poder'
-    description: null,     // texto mostrado no menu
-    icon: null,            // emoji, caminho de imagem ou null
-    animation: null,       // gancho para animação do personagem
-    vfx: null,             // gancho para efeito visual
-    sfx: null,             // gancho para som
-    cooldown: 0,           // recarga em segundos
-    key: null,             // atalho de teclado, ex.: 'Digit8'
-    implemented: false,
+    name: 'Zombaria',
+    description: 'Joia desbloqueada: por enquanto só a transformação visual. Os poderes ainda serão criados.',
+    icon: '🤡',
+    animation: null,
+    vfx: null,
+    sfx: null,
+    cooldown: 0,
+    key: null,
+    implemented: true,
     canUse: null,
-    activate: null         // function (ctx) { ... }
+    activate: function () { G.Dom.toast('Zombaria: por enquanto só a transformação visual. Os poderes virão depois.'); }
   });
 })(window.Game = window.Game || {});
 
@@ -10391,7 +10395,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
     ];
     if (ok) {
       if (s.description) kids.push(h('p', { class: 'cat-txt', text: s.description }));
-      kids.push(h('p', { class: 'cat-hint', text: 'Use pela roda de poderes ou pela barra rápida.' }));
+      kids.push(h('p', { class: 'cat-hint', text: G.Powerless && G.Powerless[sel] ? 'Joia desbloqueada: só a transformação visual por enquanto. Os poderes ainda serão criados.' : 'Use pela roda de poderes ou pela barra rápida.' }));
     } else {
       kids.push(h('p', { class: 'cat-txt', text: s.name ? 'Este poder ainda está bloqueado e em desenvolvimento. Ele não pode ser usado por enquanto.' : 'Espaço reservado para um poder futuro. Ainda bloqueado.' }));
     }
@@ -10582,7 +10586,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
     if (!r.ok) { el.classList.remove('nope'); void el.offsetWidth; el.classList.add('nope'); }
   }
 
-  function usable(s) { return s.implemented && (!G.Jewels || G.Jewels.isActive(s.id)); }   // só o que dá para usar agora
+  function usable(s) { return s.implemented && !(G.Powerless && G.Powerless[s.id]) && (!G.Jewels || G.Jewels.isActive(s.id)); }   // só o que dá para usar agora (joia sem poderes não ganha botão)
   function build() {
     const all = P.all(), s2 = all.map(function (s) { return s.id + ':' + (usable(s) ? s.name : ''); }).join('|');
     if (s2 === sig) return;
@@ -11599,6 +11603,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
     11: function () { if (G.Jubilation) G.Jubilation.dropGift(); },   // o sonho em andamento continua
     14: function () { if (G.Intuition) G.Intuition.cancel(true); },
     15: function () { if (G.Exaltation) G.Exaltation.abort(); },
+    17: function () { if (G.Migration) G.Migration.abort(); },   // encerra portais, travessia em curso e o teletransporte armado
     19: function () { if (G.Pretension) G.Pretension.stop(true); },
     12: function () { if (G.Evolution) G.Evolution.end(); },
     16: function () { if (G.Adoration) G.Adoration.deactivate(); }   // sem novas marcas/buscas; marcas e busca já iniciada continuam
@@ -11609,7 +11614,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
     10: function () { if (G.Transmission && G.Transmission.active()) G.Transmission.undo(); },
     16: function () { if (G.Adoration) G.Adoration.giveBack(); }   // encerra a esfera e limpa todas as marcas
   };
-  const MENU_OF = { 16: 'adoration', 12: 'evolution', 19: 'pretension', 14: 'intuition', 11: 'jubilation', 1: 'creation', 3: 'illusion', 4: 'protection', 5: 'action', 6: 'emotion', 8: 'multiply', 9: 'perfection', 10: 'transmission' };
+  const MENU_OF = { 17: 'migration', 16: 'adoration', 12: 'evolution', 19: 'pretension', 14: 'intuition', 11: 'jubilation', 1: 'creation', 3: 'illusion', 4: 'protection', 5: 'action', 6: 'emotion', 8: 'multiply', 9: 'perfection', 10: 'transmission' };
   function deactivate(id) {
     try { if (STOP[id]) STOP[id](); } catch (e) { console.error('[joias] desativar poder ' + id, e); }
     if (S.menu && (S.menu === MENU_OF[id] || (id === 10 && S.menu === 'transmitted' && !(G.Transmission && G.Transmission.active())))) G.UI.closeMenu();
@@ -13210,6 +13215,48 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
     Acc.jwb6m = { layer: function (v) { return v === 'back' ? 'bagFront' : 'bagBack'; }, draw: function (ctx, c, v) { BACK[t.back](ctx, t, v); } };
     Acc.jwe6m = { layer: 'neck', draw: function (ctx, c, v) { emblem(ctx, t, v, 6); } };
   })();
+  /* ===== PARTE 19 — ZOMBARIA (joia 18): traje de macaco elaborado (substitui o macaco simples; as outras joias ficam como estão) ===== */
+  HEAD.monkeyEars = function (ctx, t, v) {   // orelhas grandes e redondas com miolo claro + topete de pelo
+    if (v === 'side') { ell(ctx, -0.8, -43.6, 4, 4.4, t.c1); ell(ctx, -0.4, -43.6, 2.3, 2.7, t.c2); }
+    else [-1, 1].forEach(function (s) { ell(ctx, s * 10.9, -44, 4.3, 4.7, t.c1); ell(ctx, s * 10.9, -44, 2.6, 3.1, t.c2); ctx.strokeStyle = shade(t.c1, -0.25); ctx.lineWidth = 0.5; ctx.beginPath(); ctx.arc(s * 10.9, -44, 4.3, 0, TAU); ctx.stroke(); });
+    const b = v === 'side' ? -1.4 : 0, k = Math.sin(G.State.time * 5) * 0.5;
+    poly(ctx, [[b - 3, -52.4], [b - 2.2 + k, -57.8], [b - 0.6, -53.6], [b + 0.8 + k, -58.8], [b + 2, -53.4], [b + 3.2, -57 + k * 0.6], [b + 4, -52.4]], t.hair);
+  };
+  BACK.monkeyTail = function (ctx, t, v) {   // cauda longa e grossa, enrolada na ponta clara
+    const sw = Math.sin(G.State.time * 3.4) * 2.4;
+    ctx.lineCap = 'round';
+    [[t.c1, 3.2], [shade(t.c1, 0.18), 1.1]].forEach(function (k) {
+      ctx.strokeStyle = k[0]; ctx.lineWidth = k[1]; ctx.beginPath();
+      if (v === 'back') { ctx.moveTo(0, -20); ctx.quadraticCurveTo(8 + sw, -13, 4 + sw, -5); ctx.quadraticCurveTo(1 + sw, -1, 5 + sw, -0.4); }
+      else if (v === 'side') { ctx.moveTo(-4, -19); ctx.quadraticCurveTo(-16, -17 + sw, -15, -29 + sw); ctx.quadraticCurveTo(-14, -33 + sw, -10.6, -31 + sw); }
+      else { ctx.moveTo(6, -19); ctx.quadraticCurveTo(17, -15 + sw, 15, -27 + sw); ctx.quadraticCurveTo(14, -31 + sw, 10.8, -29 + sw); }
+      ctx.stroke();
+    });
+    ctx.lineCap = 'butt';
+    if (v === 'back') ell(ctx, 5 + sw, -0.4, 1.9, 1.9, t.c2); else if (v === 'side') ell(ctx, -10.6, -31 + sw, 1.9, 1.9, t.c2); else ell(ctx, 10.8, -29 + sw, 1.9, 1.9, t.c2);
+  };
+  EMB.monkey = function (ctx, t, v) {   // emblema de banana dourada no peito
+    if (v !== 'front') return;
+    ctx.beginPath(); ctx.moveTo(-4, -30.8); ctx.quadraticCurveTo(0, -23.6, 4.2, -31.8); ctx.quadraticCurveTo(0.8, -26.8, -4, -30.8); ctx.fillStyle = t.trim; ctx.fill();
+    ctx.strokeStyle = '#a16207'; ctx.lineWidth = 0.55; ctx.stroke();
+    ell(ctx, -4.1, -30.9, 0.9, 0.9, '#422006'); ell(ctx, 4.3, -31.9, 0.9, 0.9, '#422006'); ell(ctx, -0.8, -27.6, 0.8, 0.5, 'rgba(255,255,255,0.7)');
+  };
+  const mask1 = mask;
+  mask = function (ctx, t, v) {
+    mask1(ctx, t, v);
+    if (!t.monkeyFace || v === 'back') return;
+    if (v === 'front') {   // focinho claro, narinas e sorriso zombeteiro
+      ell(ctx, 0, -40.4, 4.7, 3.1, t.c2);
+      ell(ctx, -0.9, -41.1, 0.5, 0.65, '#7c4a24'); ell(ctx, 0.9, -41.1, 0.5, 0.65, '#7c4a24');
+      ctx.strokeStyle = '#7c4a24'; ctx.lineWidth = 0.6; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(-2.6, -39.4); ctx.quadraticCurveTo(0, -37.2, 2.8, -39.8); ctx.stroke(); ctx.lineCap = 'butt';
+      ctx.strokeStyle = t.c2; ctx.lineWidth = 0.9; ctx.beginPath(); ctx.moveTo(-5.2, -46.8); ctx.quadraticCurveTo(-3.6, -48, -1.8, -46.9); ctx.moveTo(1.8, -46.9); ctx.quadraticCurveTo(3.6, -48, 5.2, -46.8); ctx.stroke();   // sobrancelhas arqueadas
+    } else {
+      ell(ctx, 8.6, -40.4, 3.4, 2.9, t.c2); ell(ctx, 10.2, -41.2, 0.5, 0.65, '#7c4a24');
+      ctx.strokeStyle = '#7c4a24'; ctx.lineWidth = 0.6; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(6.6, -39.2); ctx.quadraticCurveTo(8.8, -37.4, 10.8, -39.4); ctx.stroke(); ctx.lineCap = 'butt';
+    }
+  };
+  Object.assign(THEMES[18], { animal: 'Macaco', top: '#a16207', trim: '#fde047', bottom: '#422006', boots: '#fde047', hair: '#3b2412', mask: '#5b3a22', head: 'monkeyEars', back: 'monkeyTail', monkeyFace: true, emblem: 'monkey', gem: '#fde047', c1: '#92602a', c2: '#f5c9a0' });
+
   Object.keys(THEMES).forEach(function (id) {
     const t = THEMES[id];
     Acc['jwm' + id] = { layer: 'head', draw: function (ctx, c, v) { mask(ctx, t, v); } };
@@ -13248,7 +13295,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
      o emblema do peito e a fivela do cinto reúnem as cores de TODAS as joias ativadas.
      A Evolução nunca entra aqui (já é recusada junto de outras joias). */
   const UPPER = { elytra: 1, beeWings: 1, butterfly: 1, wings: 1, fireWings: 1, batWings: 1, fan: 1, shell: 1, mane: 1 };
-  const TAILS = { catTail: 1, foxTail: 1, thinTail: 1, curlTail: 1, pigTail: 1, pomTail: 1, goatTail: 1, tigerTail: 1, dogTail: 1, horseTail: 1, roosterTail: 1 };
+  const TAILS = { catTail: 1, foxTail: 1, thinTail: 1, curlTail: 1, pigTail: 1, pomTail: 1, goatTail: 1, tigerTail: 1, dogTail: 1, horseTail: 1, roosterTail: 1, monkeyTail: 1 };
   UPPER.dragonWings = 1; UPPER.cobraHood = 1; UPPER.hbWings = 1; UPPER.capiMantle = 1; UPPER.lilyPad = 1; UPPER.pavTrain = 1; UPPER.pavCoat = 1;   // Parte 14: pavão   // Parte 11: peças das costas das joias brasileiras
   function upperOf(t) { return !!(t.cape || (t.back && UPPER[t.back])); }
   function tailOf(t) { return !!(t.back && TAILS[t.back]); }
@@ -14457,7 +14504,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
     const roots = [S.player, G.World.objects()].concat(cols);
     hooks.forEach(function (x) { for (const k in x.r) roots.push(x.r[k]); });
     const replaced = !!mark;
-    mark = { rec: capture(roots, stop), hooks: hooks, nCols: cols.length, x: S.player.x, y: S.player.y, at: Date.now() };
+    mark = { rec: capture(roots, stop), hooks: hooks, nCols: cols.length, x: S.player.x, y: S.player.y, at: Date.now(), stolen: G.Combat && G.Combat.stolenIds ? G.Combat.stolenIds() : [] };
     regFx = 0.9; burst(S.player.x, S.player.y, 46, 70, 30);
     G.Dom.toast(replaced ? '🔮 Novo marco temporal registrado (o anterior foi substituído).' : '🔮 Marco temporal registrado. Agora você pode voltar a este momento.', 2800);
     G.Events.emit('intuition:changed', {});
@@ -14470,6 +14517,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
     const cols = G.World.colliders();
     for (let i = mark.nCols; i < cols.length; i++) { cols[i].w = 0; cols[i].h = 0; }   // colisores criados depois do marco
     mark.hooks.forEach(function (x) { try { x.h.set(x.r); } catch (e) { console.error('[intuição] ' + x.h.name, e); } });
+    if (G.Combat && G.Combat.stolenIds) G.Combat.stolenIds().forEach(function (id) { if (mark.stolen.indexOf(id) < 0) G.Combat.giveBack(id); });   // joia roubada DEPOIS do marco volta à jogadora
   }
 
   function back() {
@@ -14584,6 +14632,427 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
     G.Events.on('intuition:changed', function () { if (open) render(); });
   }
   G.IntuitionUI = { init: init, onOpen: function () { open = true; render(); }, onClose: function () { open = false; } };
+})(window.Game = window.Game || {});
+
+</script>
+  <script>
+/* PODER 17 — MIGRAÇÃO (joia 17). Três habilidades, todas só para a personagem (nunca copiam nem movem NPCs):
+     1. Portal de Viagem — escolhe um local do mapa; abrem-se dois portais conectados (origem e destino), a personagem atravessa
+        e sai pelo destino. Os portais ficam ativos por exatamente 5 s e somem. Só a personagem os atravessa.
+     2. Teletransporte por Toque — toque em qualquer ponto visível da tela; sem limite de distância; destino validado.
+     3. Teleporte pra alguém — escolhe um NPC da lista; a personagem reaparece a cerca de 3 m dele (NPC intocado).
+   Destinos são validados: nada de paredes, objetos sólidos, água, fora do mapa, nem dentro de construções que a personagem
+   não esteja ocupando (respeita casas/lojas fechadas). */
+(function (G) {
+  'use strict';
+  const S = G.State, TAU = Math.PI * 2, T = G.Config.TILE;
+  const COL = ['#2dd4bf', '#5eead4', '#99f6e4', '#ffffff', '#fde68a', '#38bdf8'];
+  const OPEN = 0.55, LIFE = 5, CLOSE = 0.4;      // abertura, vida ativa (exatos 5 s) e fechamento dos portais
+  const REGIONS = [
+    ['Vila Jardim', 'Vila das Flores', 'Rua das Lojas', 'Docas', 'Champ de Mars'],
+    ['Parque do Lago', 'Praça Central', 'Centro', 'Distrito Comercial', 'Jardim do Leste'],
+    ['Bairro Azul', 'Jardim Botânico', 'Bairro Verde', 'Mercado Novo', 'Orla'],
+    ['Vila Nova', 'Parque Norte', 'Escola', 'Quintal das Flores', 'Vila Leste']
+  ];
+  const M = { portal: null, tr: null, armed: false, lock: null, fx: [] };
+  let pill = null, inited = false, refPt = null;
+
+  function clamp(v) { return Math.max(0, Math.min(1, v)); }
+  function ease(k) { k = clamp(k); return k * k * (3 - 2 * k); }
+  function hw() { return G.Config.PLAYER.hitW; }
+  function hh() { return G.Config.PLAYER.hitH; }
+  function free(x, y) { return !G.World.collidesBox(x - hw(), y - hh(), hw() * 2, hh()); }
+  function inBounds(x, y) { return x > 20 && y > 44 && x < G.Config.WORLD_TILES_W * T - 20 && y < G.Config.WORLD_TILES_H * T - 8; }
+  function buildingAt(x, y) { return G.Damage && G.Damage.objectAt ? G.Damage.objectAt(x, y) : null; }
+  /* ponto válido: livre de colisão, dentro do mapa e fora de construções (exceto a de referência) */
+  function okSpot(x, y, ref) {
+    if (!inBounds(x, y) || !free(x, y)) return false;
+    const b = buildingAt(x, y);
+    return !b || b === ref;
+  }
+  function npcNear(x, y, r) { return !!G.NPC && G.NPC.list().some(function (n) { return !n.arcHidden && Math.hypot(n.x - x, n.y - y) < r; }); }
+  function changed() { G.Events.emit('migration:changed', {}); }
+  function pointerWorld(e) {
+    const cv = document.getElementById('game'), r = cv.getBoundingClientRect(), cam = G.Camera.cam, z = cam.zoom * (1 + cam.pulse);
+    return { x: cam.x + (e.clientX - r.left) / z, y: cam.y + (e.clientY - r.top) / z };
+  }
+  function snapCam() { const c = G.Camera.cam, p = S.player; c.x = p.x - c.w / 2; c.y = p.y - 30 - c.h / 2; }
+
+  /* ---------- locais do Portal de Viagem (os 20 bairros) ---------- */
+  function spotFor(r, c, noReach) {
+    const C = G.Config, P = C.BLOCK + C.ROAD, name = REGIONS[r][c];
+    const cx = (C.ROAD + c * P + C.BLOCK / 2) * T, cy = (C.ROAD + r * P + C.BLOCK / 2) * T;
+    for (let rad = 0; rad <= 420; rad += 14) {
+      const n = rad ? 18 : 1;
+      for (let i = 0; i < n; i++) {
+        const a = i / n * TAU, x = cx + Math.cos(a) * rad, y = cy + Math.sin(a) * rad;
+        if (!free(x, y) || !inBounds(x, y)) continue;
+        const rg = G.World.regionAt(x, y);
+        if (rg !== name && rg !== 'Avenidas') continue;
+        if (buildingAt(x, y) || npcNear(x, y, 22)) continue;
+        if (!noReach && !reachable(x, y)) continue;      // bolsões fechados (sem saída a pé) não servem de destino
+        return { x: x, y: y };
+      }
+    }
+    return null;
+  }
+  function destinations() {
+    const out = [];
+    for (let r = 0; r < REGIONS.length; r++) for (let c = 0; c < REGIONS[r].length; c++) {
+      const s = spotFor(r, c);
+      out.push({ id: r * 5 + c, name: REGIONS[r][c], x: s ? s.x : 0, y: s ? s.y : 0, ok: !!s });
+    }
+    return out;
+  }
+  function reference() {
+    if (refPt) return refPt;
+    refPt = spotFor(1, 1, true);
+    return refPt;
+  }
+  /* o destino precisa ser alcançável a pé a partir do centro da cidade (nada de bolsões fechados) */
+  function reachable(x, y) {
+    const ref = reference();
+    if (!ref || !G.findPath) return true;
+    const r = G.findPath(x, y, ref.x, ref.y);
+    return !!(r && r.full);
+  }
+
+  /* ---------- efeitos ---------- */
+  function spark(x, y, vx, vy, life, size, shape) {
+    G.Fx.spawn({ x: x, y: y, vx: vx, vy: vy, life: life, size: size, color: COL[(Math.random() * COL.length) | 0], shape: shape || (Math.random() < 0.35 ? 'feather' : 'star'), drag: 1.1, spin: (Math.random() - 0.5) * 8 });
+  }
+  function burst(x, y, n, spread, up) {
+    for (let i = 0; i < n; i++) {
+      const a = Math.random() * TAU, v = spread * (0.35 + Math.random() * 0.9);
+      spark(x, y, Math.cos(a) * v, Math.sin(a) * v - (up || 0), 0.45 + Math.random() * 0.5, 1.8 + Math.random() * 2.2);
+    }
+  }
+  function suck(x, y, tx, ty, n) {      // partículas puxadas para um ponto
+    for (let i = 0; i < n; i++) {
+      const a = Math.random() * TAU, r = 14 + Math.random() * 16, sx = x + Math.cos(a) * r, sy = y - 26 + Math.sin(a) * r * 0.8;
+      spark(sx, sy, (tx - sx) * 2.4, (ty - 26 - sy) * 2.4, 0.32 + Math.random() * 0.2, 1.6 + Math.random() * 1.8, 'dot');
+    }
+  }
+  function ring(x, y, big) { M.fx.push({ x: x, y: y, t: 0, dur: 0.55, big: !!big }); }
+  function fxRing(f, ctx) {
+    const k = f.t / f.dur; if (k >= 1) return;
+    const r = (f.big ? 52 : 34) * ease(k) + 6;
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    ctx.globalAlpha = (1 - k) * 0.9; ctx.strokeStyle = '#5eead4'; ctx.lineWidth = 3 * (1 - k) + 1;
+    ctx.beginPath(); ctx.ellipse(f.x, f.y, r, r * 0.38, 0, 0, TAU); ctx.stroke();
+    ctx.globalAlpha = (1 - k) * 0.55; ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 1.4;
+    ctx.beginPath(); ctx.ellipse(f.x, f.y - 20 * k, r * 0.7, r * 0.26, 0, 0, TAU); ctx.stroke();
+    const g = ctx.createLinearGradient(0, f.y - 70, 0, f.y);   // coluna de luz
+    g.addColorStop(0, 'rgba(94,234,212,0)'); g.addColorStop(1, 'rgba(94,234,212,' + 0.45 * (1 - k) + ')');
+    ctx.fillStyle = g; ctx.fillRect(f.x - 12 * (1 - k * 0.6), f.y - 70, 24 * (1 - k * 0.6), 70);
+    ctx.restore();
+  }
+  function drawPortal(ctx, x, y, k, t) {
+    if (k <= 0.02) return;
+    const rw = 17 * k, rh = 31 * k, cy = y - 30 * k;
+    ctx.save();
+    ctx.globalAlpha = 0.5 * k; ctx.fillStyle = 'rgba(0,0,0,0.5)';
+    ctx.beginPath(); ctx.ellipse(x, y + 1, rw * 1.3, 6 * k, 0, 0, TAU); ctx.fill();
+    ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'lighter';
+    const aura = ctx.createRadialGradient(x, cy, rh * 0.2, x, cy, rh * 1.7);
+    aura.addColorStop(0, 'rgba(94,234,212,0.5)'); aura.addColorStop(1, 'rgba(45,212,191,0)');
+    ctx.fillStyle = aura; ctx.beginPath(); ctx.arc(x, cy, rh * 1.7, 0, TAU); ctx.fill();
+    ctx.globalCompositeOperation = 'source-over';
+    const body = ctx.createRadialGradient(x, cy, 1, x, cy, rh);
+    body.addColorStop(0, '#ccfbf1'); body.addColorStop(0.45, '#14b8a6'); body.addColorStop(1, '#064e4b');
+    ctx.fillStyle = body; ctx.beginPath(); ctx.ellipse(x, cy, rw, rh, 0, 0, TAU); ctx.fill();
+    ctx.lineCap = 'round';
+    for (let i = 0; i < 4; i++) {
+      const a = t * (2.2 + i * 0.6) + i * 1.7, f = 0.28 + i * 0.2;
+      ctx.strokeStyle = i % 2 ? 'rgba(255,255,255,0.8)' : 'rgba(253,230,138,0.85)'; ctx.lineWidth = 1.8;
+      ctx.beginPath(); ctx.ellipse(x, cy, rw * f, rh * f, 0, a, a + 1.6); ctx.stroke();
+    }
+    ctx.strokeStyle = '#5eead4'; ctx.lineWidth = 3.2; ctx.beginPath(); ctx.ellipse(x, cy, rw, rh, 0, 0, TAU); ctx.stroke();
+    ctx.strokeStyle = 'rgba(255,255,255,0.8)'; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.ellipse(x, cy, rw + 2.5, rh + 2.5, 0, 0, TAU); ctx.stroke();
+    ctx.restore();
+  }
+  function portalK(P) { return P.t < LIFE ? ease(P.t / OPEN) : 1 - ease((P.t - LIFE) / CLOSE); }
+  function actors(ctx) {
+    const list = [];
+    const P = M.portal;
+    if (P) [P.a, P.b].forEach(function (pt) { list.push({ y: pt.y, draw: function () { drawPortal(ctx, pt.x, pt.y, portalK(P), S.time); } }); });
+    M.fx.forEach(function (f) { list.push({ y: f.y + 1, draw: function () { fxRing(f, ctx); } }); });
+    return list;
+  }
+
+  /* ---------- travessias (portal e teletransporte) ---------- */
+  function startTravel(mode, from, via, to, tm) {
+    const p = S.player;
+    M.tr = { mode: mode, t: 0, pre: tm.pre, d1: tm.d1, gap: tm.gap, d2: tm.d2, from: { x: p.x, y: p.y }, via: via, to: to, moved: false, alpha: 1, who: tm.who };
+    S.busy = true; p.moving = false; p.vx = 0; p.vy = 0; G.Input.clear();
+    if (via) p.facing = Math.abs(via.x - p.x) > Math.abs(via.y - p.y) ? (via.x < p.x ? 'left' : 'right') : (via.y < p.y ? 'up' : 'down');
+    changed();
+  }
+  function relocate(tr) {
+    const p = S.player;
+    if (tr.mode !== 'tap') ring(p.x, p.y, false);
+    burst(p.x, p.y - 24, tr.mode === 'tap' ? 22 : 12, 90, 30);
+    p.x = tr.to.x; p.y = tr.to.y; p.vx = 0; p.vy = 0; p.facing = 'down'; p.moving = false;
+    snapCam();
+    ring(p.x, p.y, true);
+    burst(p.x, p.y - 24, 26, 110, 40);
+    G.Camera.cam.shake = Math.max(G.Camera.cam.shake || 0, 0.5);
+    tr.moved = true;
+  }
+  function finishTravel(instant) {
+    const tr = M.tr; if (!tr) return;
+    if (!tr.moved) { if (instant) { const p = S.player; p.x = tr.to.x; p.y = tr.to.y; snapCam(); } else relocate(tr); }
+    M.tr = null; S.busy = false; G.Input.clear();
+    if (tr.mode !== 'tap' && M.portal) M.lock = tr.who;       // saiu por um portal: só volta a cruzar depois de se afastar dele
+    changed();
+  }
+  function stepTravel(dt) {
+    const tr = M.tr, p = S.player;
+    tr.t += dt;
+    const t0 = tr.pre, t1 = t0 + tr.d1, t2 = t1 + tr.gap, t3 = t2 + tr.d2;
+    if (tr.t < t0) { tr.alpha = 1; }
+    else if (tr.t < t1) {
+      const k = (tr.t - t0) / tr.d1;
+      tr.alpha = 1 - ease(k);
+      if (tr.via) { const e = ease(k); p.x = tr.from.x + (tr.via.x - tr.from.x) * e; p.y = tr.from.y + (tr.via.y - tr.from.y) * e; suck(p.x, p.y, tr.via.x, tr.via.y, 3); }
+      else { for (let i = 0; i < 3; i++) spark(p.x + (Math.random() - 0.5) * 22, p.y - 6, (Math.random() - 0.5) * 20, -70 - Math.random() * 80, 0.4, 1.6 + Math.random() * 1.6); }
+    } else if (tr.t < t2) {
+      if (!tr.moved) relocate(tr);
+      tr.alpha = 0;
+    } else if (tr.t < t3) {
+      if (!tr.moved) relocate(tr);
+      const k = (tr.t - t2) / tr.d2;
+      tr.alpha = ease(k);
+      for (let i = 0; i < 2; i++) spark(p.x + (Math.random() - 0.5) * 20, p.y - 4, (Math.random() - 0.5) * 30, -60 - Math.random() * 60, 0.45, 1.6 + Math.random() * 1.6);
+    } else { finishTravel(false); }
+  }
+
+  /* ---------- habilidade 1: Portal de Viagem ---------- */
+  function originSpot() {
+    const p = S.player, ref = buildingAt(p.x, p.y);
+    const f = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] }[p.facing] || [0, 1];
+    const tries = [[f[0], f[1]], [f[1], -f[0]], [-f[1], f[0]], [-f[0], -f[1]]];
+    for (let i = 0; i < tries.length; i++) {
+      const x = p.x + tries[i][0] * 36, y = p.y + tries[i][1] * 30;
+      if (okSpot(x, y, ref)) return { x: x, y: y };
+    }
+    return { x: p.x, y: p.y };
+  }
+  function travel(id) {
+    const p = S.player;
+    if (S.identity !== 'hero' || S.busy || M.tr) return false;
+    if (M.portal) { G.Dom.toast('🌀 Os portais ainda estão abertos. Aguarde eles se fecharem.', 2600); return false; }
+    const d = destinations().filter(function (v) { return v.id === id; })[0];
+    if (!d || !d.ok || !reachable(d.x, d.y)) { G.Dom.toast('🚫 Não é possível chegar àquele local.', 2800); return false; }
+    const A = originSpot(), B = { x: d.x, y: d.y };
+    M.portal = { a: A, b: B, t: 0, em: 0 };
+    M.lock = null;
+    startTravel('portal', null, A, B, { pre: OPEN, d1: 0.8, gap: 0.05, d2: 0.8, who: 'b' });
+    G.Dom.toast('🌀 Portal aberto para ' + d.name + '!', 2400);
+    return true;
+  }
+  function stepPortal(dt) {
+    const P = M.portal, p = S.player;
+    P.t += dt;
+    if (P.t >= LIFE + CLOSE) { M.portal = null; M.lock = null; changed(); return; }
+    // brilho das bordas
+    if (P.t < LIFE) {
+      P.em += dt;
+      while (P.em > 0.035) {
+        P.em -= 0.035;
+        [P.a, P.b].forEach(function (pt) {
+          const a = Math.random() * TAU, k = portalK(P);
+          spark(pt.x + Math.cos(a) * 17 * k, pt.y - 30 * k + Math.sin(a) * 31 * k, Math.cos(a) * 12, -22 - Math.random() * 24, 0.55, 1.4 + Math.random() * 1.6);
+        });
+      }
+    } else if (P.t - dt < LIFE) { [P.a, P.b].forEach(function (pt) { burst(pt.x, pt.y - 26, 16, 70, 20); }); }   // fechando
+    // a personagem pode atravessar de novo enquanto os portais estiverem ativos
+    if (!M.tr && !S.busy && P.t < LIFE && P.t > OPEN) {
+      const da = Math.hypot(p.x - P.a.x, p.y - P.a.y), db = Math.hypot(p.x - P.b.x, p.y - P.b.y);
+      if (M.lock === 'a' && da > 40) M.lock = null;
+      if (M.lock === 'b' && db > 40) M.lock = null;
+      if (!M.lock && da < 16) startTravel('portal', null, P.a, { x: P.b.x, y: P.b.y }, { pre: 0, d1: 0.38, gap: 0.03, d2: 0.4, who: 'b' });
+      else if (!M.lock && db < 16) startTravel('portal', null, P.b, { x: P.a.x, y: P.a.y }, { pre: 0, d1: 0.38, gap: 0.03, d2: 0.4, who: 'a' });
+    }
+  }
+
+  /* ---------- habilidade 2: Teletransporte por Toque ---------- */
+  function armTap() {
+    if (S.identity !== 'hero' || S.busy || M.tr) return false;
+    if (G.Destruction) G.Destruction.cancel();
+    if (G.Protection) G.Protection.cancelAim();
+    if (G.Action) G.Action.disarm();
+    if (G.Exaltation && G.Exaltation.armed()) G.Exaltation.abort();
+    M.armed = true; G.Input.clear(); showPill(true);
+    G.Dom.toast('✨ Toque em qualquer ponto visível da tela para se teletransportar.', 3400);
+    changed();
+    return true;
+  }
+  function disarm() { if (!M.armed) return; M.armed = false; showPill(false); changed(); }
+  function tapTo(w) {
+    const p = S.player, ref = buildingAt(p.x, p.y);
+    if (!okSpot(w.x, w.y, ref)) { G.Dom.toast('🚫 Não é possível se teletransportar para esse local. Toque em outro ponto.', 2800); return; }
+    M.armed = false; showPill(false);
+    startTravel('tap', null, null, { x: w.x, y: w.y }, { pre: 0, d1: 0.3, gap: 0.04, d2: 0.34, who: null });
+  }
+
+  /* ---------- habilidade 3: Teleporte pra alguém ---------- */
+  function npcState(n) {
+    if (!n || n.arcHidden || n.nightIn) return 'não está disponível agora';
+    if (n.dream || n.exalt && n.exalt.ph === 'fly') return 'não está disponível agora';
+    return '';
+  }
+  function npcSpot(n) {
+    const p = S.player, R = 3 * T, ref = buildingAt(n.x, n.y);
+    const base = Math.atan2(p.y - n.y, p.x - n.x);
+    const clearTo = function (x, y) {
+      const d = Math.hypot(n.x - x, n.y - y), steps = Math.ceil(d / 8);
+      for (let i = 1; i < steps; i++) {
+        const k = i / steps, px = x + (n.x - x) * k, py = y + (n.y - y) * k;
+        if (Math.hypot(px - n.x, py - n.y) < 16) break;
+        if (!free(px, py)) return false;
+      }
+      return true;
+    };
+    const radii = [R, R * 0.88, R * 1.12, R * 0.74, R * 1.26];
+    for (let ri = 0; ri < radii.length; ri++) for (let i = 0; i < 24; i++) {
+      const a = base + (i % 2 ? 1 : -1) * Math.ceil(i / 2) * (TAU / 24);
+      const x = n.x + Math.cos(a) * radii[ri], y = n.y + Math.sin(a) * radii[ri];
+      if (okSpot(x, y, ref) && !npcNear(x, y, 22) && clearTo(x, y)) return { x: x, y: y };
+    }
+    return null;
+  }
+  function toNpc(n) {
+    if (S.identity !== 'hero' || S.busy || M.tr) return false;
+    if (M.portal) { G.Dom.toast('🌀 Os portais ainda estão abertos. Aguarde eles se fecharem.', 2600); return false; }
+    if (!n || (G.NPC && G.NPC.list().indexOf(n) < 0) || npcState(n)) { G.Dom.toast('🚫 Não é possível se teletransportar: essa pessoa não está disponível.', 2800); return false; }
+    const s = npcSpot(n);
+    if (!s) { G.Dom.toast('🚫 Não há um lugar seguro perto de ' + (n.name || 'essa pessoa') + ' para aparecer.', 3000); return false; }
+    startTravel('tap', null, null, s, { pre: 0, d1: 0.3, gap: 0.04, d2: 0.34, who: null });
+    return true;
+  }
+  function npcList() {
+    return (G.NPC ? G.NPC.list() : []).map(function (n) {
+      return { n: n, name: n.name || n.label || 'Pessoa', why: npcState(n), d: Math.round(Math.hypot(n.x - S.player.x, n.y - S.player.y) / T) };
+    });
+  }
+
+  /* ---------- ativar / encerrar ---------- */
+  function activate() {
+    if (M.armed) { disarm(); G.Dom.toast('Teletransporte por Toque cancelado.'); return; }
+    G.UI.toggleMenu('migration');
+  }
+  function abort() {            // joia desativada/devolvida ou destransformação: encerra tudo na hora
+    if (M.tr) finishTravel(true);
+    M.portal = null; M.lock = null; M.fx.length = 0;
+    disarm(); changed();
+  }
+  function update(dt) {
+    for (let i = M.fx.length - 1; i >= 0; i--) { M.fx[i].t += dt; if (M.fx[i].t >= M.fx[i].dur) M.fx.splice(i, 1); }
+    if (M.portal) stepPortal(dt);
+    if (M.tr) stepTravel(dt);
+  }
+  function alpha() { return M.tr ? M.tr.alpha : 1; }
+  function showPill(on) { if (pill) pill.hidden = !on; }
+  function init() {
+    if (inited) return; inited = true;
+    pill = G.Dom.h('div', { class: 'mg-pill', hidden: true }, [
+      G.Dom.h('span', { text: '✨ Toque no destino' }),
+      G.Dom.h('button', { type: 'button', text: 'Cancelar', onclick: function () { disarm(); G.Dom.toast('Teletransporte por Toque cancelado.'); } })]);
+    document.body.append(pill);
+    document.addEventListener('pointerdown', function (e) {       // captura: nenhum outro toque do jogo recebe este clique
+      if (!M.armed || S.menu || S.busy || M.tr) return;
+      if (e.target !== document.getElementById('game')) return;
+      e.stopPropagation(); e.preventDefault();
+      tapTo(pointerWorld(e));
+    }, true);
+    G.Events.on('key:down', function (e) { if (M.armed && !e.repeat && e.code === 'Escape' && !S.menu) { disarm(); G.Dom.toast('Teletransporte por Toque cancelado.'); } });
+    G.Events.on('transform:start', function () { abort(); });
+  }
+
+  G.Migration = {
+    init: init, update: update, activate: activate, abort: abort, actors: actors, alpha: alpha,
+    destinations: destinations, travel: travel, armTap: armTap, npcs: npcList, toNpc: toNpc,
+    armed: function () { return M.armed; }, portalsOpen: function () { return !!M.portal; },
+    running: function () { return M.armed || !!M.tr || !!M.portal; }
+  };
+
+  G.Powers.define(17, {
+    name: 'Migração',
+    description: 'Três formas de deslocamento mágico: Portal de Viagem (dois portais conectados por 5 s), Teletransporte por Toque (qualquer ponto visível da tela) e Teleporte pra alguém (aparece a ~3 m de um NPC).',
+    icon: '🦅',
+    animation: 'Desaparecimento mágico com penas e partículas turquesa; travessia por portais ovais brilhantes',
+    vfx: 'Portais com redemoinho, anéis de luz, colunas de luz e penas mágicas',
+    sfx: null,
+    cooldown: 0,
+    key: null,
+    implemented: true,
+    init: function () { G.Migration.init(); },
+    update: function (dt) { G.Migration.update(dt); },
+    running: function () { return G.Migration.running(); },
+    activate: function () { G.Migration.activate(); }
+  });
+})(window.Game = window.Game || {});
+
+/* INTERFACE DO PODER 17 — MIGRAÇÃO (três opções: Portal de Viagem · Teletransporte por Toque · Teleporte pra alguém). */
+(function (G) {
+  'use strict';
+  const h = G.Dom.h, I = G.Dom.icons, S = G.State;
+  let root, body, sub, open = false, view = 'main';
+  const SVG = {
+    portal: '<svg viewBox="0 0 32 32"><ellipse cx="9" cy="16" rx="5" ry="10" fill="none" stroke="currentColor" stroke-width="2.4"/><ellipse cx="23" cy="16" rx="5" ry="10" fill="currentColor" opacity=".35" stroke="currentColor" stroke-width="2.4"/><path d="M13 16h6m-2.5-2.5L19 16l-2.5 2.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    tap: '<svg viewBox="0 0 32 32"><path d="M13 27V12.5a2 2 0 0 1 4 0V19l5.2 1.4A3 3 0 0 1 24 23.2V27Z" fill="currentColor" opacity=".85"/><path d="M8 9a8 8 0 0 1 16 0M11 9a5 5 0 0 1 10 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+    person: '<svg viewBox="0 0 32 32"><circle cx="13" cy="10" r="4.6" fill="currentColor"/><path d="M4 27c0-6 4-9.5 9-9.5s9 3.500 9 9.500Z" fill="currentColor" opacity=".85"/><path d="M25 5l1 2.800 2.800 1-2.800 1-1 2.800-1-2.800-2.800-1 2.800-1Z" fill="currentColor"/></svg>'
+  };
+  function card(svg, title, text, onclick, dis) {
+    const b = h('button', { class: 'pro-card mg-card', type: 'button', onclick: onclick }, [
+      h('span', { class: 'pro-ico mg-ico', html: svg }), h('span', { class: 'ilu-txt' }, [h('b', { text: title }), h('small', { text: text })])]);
+    if (dis) b.disabled = true;
+    return b;
+  }
+  function back() { return h('button', { class: 'ilu-back', type: 'button', html: I.left + '<span>Voltar</span>', onclick: function () { view = 'main'; render(); } }); }
+  function render() {
+    const M = G.Migration;
+    sub.textContent = 'Poder 17 • ' + (M.portalsOpen() ? 'portais abertos' : 'pronto para migrar');
+    if (view === 'portal') {
+      const kids = [back(), h('div', { class: 'mg-head', text: 'Portal de Viagem — escolha o destino' })];
+      M.destinations().forEach(function (d) {
+        const dist = Math.round(Math.hypot(d.x - S.player.x, d.y - S.player.y) / G.Config.TILE);
+        const b = h('button', { class: 'pro-card mg-card mg-item', type: 'button', onclick: function () { if (M.travel(d.id)) G.UI.closeMenu(); } }, [
+          h('span', { class: 'ilu-txt' }, [h('b', { text: d.name }), h('small', { text: d.ok ? 'a ' + dist + ' m' : 'indisponível' })])]);
+        if (!d.ok) b.disabled = true;
+        kids.push(b);
+      });
+      body.replaceChildren.apply(body, kids);
+      return;
+    }
+    if (view === 'npc') {
+      const kids = [back(), h('div', { class: 'mg-head', text: 'Teleporte pra alguém — escolha a pessoa' })], list = M.npcs();
+      if (!list.length) kids.push(h('div', { class: 'mg-empty', text: 'Nenhum NPC no mundo.' }));
+      list.forEach(function (it) {
+        const b = h('button', { class: 'pro-card mg-card mg-item', type: 'button', onclick: function () { if (M.toNpc(it.n)) G.UI.closeMenu(); } }, [
+          h('span', { class: 'ilu-txt' }, [h('b', { text: it.name }), h('small', { text: it.why ? it.why : 'a ' + it.d + ' m' })])]);
+        if (it.why) b.disabled = true;
+        kids.push(b);
+      });
+      body.replaceChildren.apply(body, kids);
+      return;
+    }
+    body.replaceChildren(
+      card(SVG.portal, 'Portal de Viagem', M.portalsOpen() ? 'Aguarde os portais se fecharem' : 'Abre dois portais conectados (5 s) até um local do mapa', function () { view = 'portal'; render(); }, M.portalsOpen()),
+      card(SVG.tap, 'Teletransporte por Toque', 'Toque em qualquer ponto visível da tela e apareça lá', function () { G.UI.closeMenu(); M.armTap(); }),
+      card(SVG.person, 'Teleporte pra alguém', 'Escolha um NPC e apareça a cerca de 3 m dele', function () { view = 'npc'; render(); }, M.portalsOpen()));
+  }
+  function init(el) {
+    root = el;
+    sub = h('div', { class: 'sheet-sub' });
+    body = h('div', { class: 'sheet-body ilu-body mg-body' });
+    root.append(h('div', { class: 'sheet-head' }, [
+      h('div', { class: 'ilu-title' }, [h('span', { class: 'pro-mark mg-mark', html: SVG.portal }), h('div', {}, [h('div', { class: 'sheet-title', text: 'Migração' }), sub])]),
+      h('button', { class: 'x', type: 'button', 'aria-label': 'Fechar', html: I.close, onclick: function () { G.UI.closeMenu(); } })]), body);
+    G.Events.on('migration:changed', function () { if (open) render(); });
+  }
+  G.MigrationUI = { init: init, onOpen: function () { open = true; view = 'main'; render(); }, onClose: function () { open = false; } };
 })(window.Game = window.Game || {});
 
 </script>
@@ -17069,6 +17538,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
   function hitPlayer(kind, fx, fy) {
     if (G.Dodge.state) return false;                                     // esquivando: o golpe não pega
     if (react && react.kind === 'knock' && react.t < KNOCK.up) return false;
+    if (!G.Powers.affect(S.player, { power: 'akumatizado', effect: kind })) return false;   // Determinação repele o golpe de qualquer adversário
     const p = S.player, dx = p.x - fx, dy = p.y - fy, d = Math.hypot(dx, dy) || 1;
     react = { kind: kind, t: 0, dir: dx < 0 ? -1 : 1 };
     G.World.move(p, dx / d * (kind === 'knock' ? 22 : 10), dy / d * (kind === 'knock' ? 22 : 10));
@@ -17202,6 +17672,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
     n.foe.dv = { x: (dx / d * 0.7 - dy / d * side * 0.7) * 260, y: (dy / d * 0.7 + dx / d * side * 0.7) * 260 };
   }
   function stealFrom(n) {
+    if (!G.Powers.affect(S.player, { power: 'akumatizado', effect: 'steal' })) { n.foe.stealT = 0; n.foe.back = 1.4; sparks(S.player.x, S.player.y - 30, 14, ['#3b82f6', '#bfdbfe'], 90); return; }   // Determinação repele o roubo
     const list = G.Jewels.carried().filter(function (id) { return id !== 1; }).map(function (id) { return { id: id, br: false }; })   // Criação nunca pode ser roubada
       .concat(G.JewelsBR ? G.JewelsBR.carried().map(function (id) { return { id: id, br: true }; }) : []);
     if (!list.length) { n.foe.stealT = 0; return; }
@@ -17211,6 +17682,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
     b.transit[pick.id] = n.foe.holder;                      // a caminho de quem possui a Transmissão (nunca some)
     b.recovered = b.recovered.filter(function (x) { return x !== pick.id; });
     n.foe.carry = pick.id; n.foe.st = 'deliver'; n.foe.stealT = 0;
+    (n.foe.stolen = n.foe.stolen || []).push(pick.id);
     const nm = pick.br ? G.JewelsBR.label(pick.id) : G.Jewels.get(pick.id).name;
     G.Dom.toast('💎 ' + n.name + ' roubou ' + nm + '!', 3200);
     if (G.Campaign) G.Campaign.record('joia roubada:' + pick.id, { by: n.id, to: n.foe.holder });
@@ -17223,7 +17695,13 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
     if (G.Campaign) G.Campaign.record('joia entregue:' + id, { to: h });
     save();
   }
-  function defeat(n) { const f = n.foe; if (f.st === 'down') return; f.st = 'down'; f.down = 0; f.stealT = 0; f.orbs = []; G.Dom.toast('✨ ' + n.name + ' foi derrotado!', 2200); }
+  function returnLoot(n) {   // ao derrotar o akumatizado, as joias que ele roubou (a caminho, entregues ou no chão) voltam à jogadora
+    const f = n.foe, b = J(); (f.stolen || []).slice().forEach(function (id) {
+      const st = String(id).indexOf('br') === 0 ? b.brazil.status[id] : b.status[id];
+      if (st === 'stolen') recover(id);
+    }); f.stolen = []; f.carry = null;
+  }
+  function defeat(n) { const f = n.foe; if (f.st === 'down') return; returnLoot(n); f.st = 'down'; f.down = 0; f.stealT = 0; f.orbs = []; G.Dom.toast('✨ ' + n.name + ' foi derrotado!', 2200); }
   function finish(n) {   // destransformação: a mesma pessoa volta ao normal
     const f = n.foe;
     if (f.carry) { const b = J(); delete b.transit[f.carry]; b.dropped.push({ id: f.carry, x: Math.round(n.x), y: Math.round(n.y) }); G.Dom.toast('💎 A joia caiu no chão. Pegue-a para recuperar!', 3000); }
@@ -17332,7 +17810,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
     Object.keys(b.holders).forEach(function (h) { b.holders[h] = b.holders[h].filter(function (x) { return x !== id; }); });
     if (br) b.brazil.status[id] = 'available'; else b.status[id] = 'available';
     if (b.recovered.indexOf(id) < 0) b.recovered.push(id);
-    const inHand = br ? G.JewelsBR.receive(id) : G.Jewels.receive(id);
+    const inHand = (br ? G.JewelsBR.receive(id) : G.Jewels.receive(id)) || (br ? G.JewelsBR.carried() : G.Jewels.carried()).indexOf(id) >= 0;
     G.Dom.toast('💎 Joia recuperada' + (inHand ? ' — está com você!' : ' — voltou para a caixa (você já carrega 4).'), 3000);
     if (G.Campaign) G.Campaign.record('joia recuperada:' + id);
     G.Events.emit('jewels:changed', {}); save();
@@ -17468,6 +17946,13 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
     on: on, target: target, cycle: cycle, aim: aim, attack: attack, dodge: dodge, spawn: spawn, drive: drive, drawFoe: drawFoe, foes: foes,
     recover: recover, update: update, drawGround: drawGround, drawOverlay: drawOverlay, initHud: initHud, protectByAim: protectByAim,
     stealRange: STEAL_R, stealTime: STEAL_T, hitPlayer: hitPlayer, stunned: stunned,
+    stolenIds: function () {   // joias hoje roubadas (usado pela Intuição para devolver as roubadas depois do marco)
+      if (!on()) return []; const b = J(), out = [];
+      Object.keys(b.status || {}).forEach(function (k) { if (b.status[k] === 'stolen') out.push(+k); });
+      Object.keys((b.brazil && b.brazil.status) || {}).forEach(function (k) { if (b.brazil.status[k] === 'stolen') out.push(k); });
+      return out;
+    },
+    giveBack: function (id) { if (on()) recover(id); },
     setTransmissionHolder: function (id) { if (!on()) return false; J().transmissionHolder = id || 'player'; save(); return true; },   // para a campanha (roubo da Transmissão: etapa futura)
     holdings: function (id) { return on() ? (J().holders[id] || []).slice() : []; },
     hurt: function (n, dmg) {   // dano vindo de poderes (Dominação / Subjugação)
@@ -17791,7 +18276,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
   }
   function complete(n) {
     if (!on() || !PHASES[n - 1] || !PHASES[n - 1].ready) return false;
-    const ps = st(); if (ps.done.indexOf(n) < 0) ps.done.push(n);
+    const ps = st(), slotsBefore = ps.slots; if (ps.done.indexOf(n) < 0) ps.done.push(n);
     ps.log.push({ t: Date.now(), what: 'fase concluída', n: n });
     if (G.Campaign) G.Campaign.record('fase concluída:' + n);
     let msg = '🏁 Fase ' + n + ' concluída!';
@@ -17808,6 +18293,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
       else msg += ' A Fase ' + (n + 1) + ' ainda está bloqueada.';
     }
     G.Dom.toast(msg, 5200);
+    if (ps.slots > slotsBefore) slotNote = ps.slots;   // aviso fixo na tela de fase concluída: nova vaga de joia
     apply(); save();
     setTimeout(function () { showEnd(n); }, 900);
     return true;
@@ -17819,11 +18305,13 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
     const ps = st(); if (!on() || !PHASES[n - 1] || !PHASES[n - 1].ready || ps.done.indexOf(n) < 0) return false;
     if (ps.replay == null) ps.resume = ps.current;
     ps.replay = n; ps.current = n;
+    if (G.Arc && G.Arc.clearWon) G.Arc.clearWon(n);
     (PHASES[n - 1].missions || []).forEach(function (id) { if (G.Campaign) G.Campaign.resetMission(id); });
     if (G.Campaign) G.Campaign.record('fase repetida:' + n);
     G.Dom.toast('🔁 Fase ' + n + ' reiniciada. Vá até o local da batalha.', 3600);
     apply(); save(); return true;
   }
+  let slotNote = 0;
   function showEnd(n) {
     if (!on()) return; closeEnd();
     const h = G.Dom.h, ps = st(), nx = ps.current, hasNext = nx !== n && PHASES[nx - 1] && PHASES[nx - 1].ready && !ps.replay;
@@ -17831,13 +18319,14 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
     endBox = h('div', { id: 'phase-end' }, [h('div', { class: 'pe-card' }, [
       h('div', { class: 'pe-title', text: '🏁 Fase ' + n + ' concluída' }),
       h('div', { class: 'pe-sub', text: PHASES[n - 1].title || '' }),
+      slotNote ? h('div', { class: 'pe-warn', text: '💎 Nova vaga de joia! Agora você pode carregar ' + slotNote + ' joias. Fale com o Guardião na Casa dele para pegar mais joias antes da próxima batalha.' }) : null,
       G.Damage && G.Damage.count() > 0 ? h('div', { class: 'pe-warn', text: '🌀 Paris ficou danificada: use a Restauração (Criação) antes da próxima batalha.' }) : null,
       h('div', { class: 'pe-opts' }, [
         hasNext ? btn('➡️', 'Próxima fase', 'Fase ' + nx + (PHASES[nx - 1].title ? ' — ' + PHASES[nx - 1].title : ''), function () { closeEnd(); }, 'main')
           : btn('🔒', 'Próxima fase', 'Ainda não há uma próxima fase disponível', function () {}, 'off'),
         btn('🔁', 'Repetir fase', 'Jogar a Fase ' + n + ' de novo (seu progresso é mantido)', function () { closeEnd(); repeat(n); }),
         btn('🔀', 'Mudar de modo', 'Salva e volta à seleção de modo', function () { closeEnd(); G.Mode.backToMenu(); })])])]);
-    document.body.append(endBox);
+    document.body.append(endBox); slotNote = 0;
   }
 
   let inited = false;
@@ -18200,6 +18689,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
     if (G.Damage && G.Damage.count() > 0) setTimeout(function () { toast('🌀 O cenário ficou danificado. Use a Restauração (poder da Criação) antes da próxima batalha.', 4200); }, 2600);   // Parte 11: a restauração é feita pela jogadora
     margotRelease('watch');
     if (win) {
+      (A().won = A().won || {})[n] = true;   // a batalha desta fase já aconteceu: voltar ao local não a repete
       const lines = { 1: [['Beija-flor', 'Isso não acabou, heroína!'], ['', 'O Beija-flor some numa investida. Ele continua com a joia brasileira.']],
         3: [['Capivara Raivosa', 'Grr… da próxima vez eu domino a cidade inteira!'], ['', 'A Capivara Raivosa foge — com a Joia da Capivara.']],
         4: [['', 'Os dois antagonistas brasileiros fogem, cada um para um lado.']], 9: [['', 'Mais uma vez, os dois fogem com as joias brasileiras.']],
@@ -18783,6 +19273,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
       if (dist(p, spot(5)) < 110) { margotRelease(); startScene(); }
       return;
     }
+    if ((step === 'chegar' || step === 'vencer' || step === 'assistir') && A().won && A().won[n]) { G.Campaign.completeStep(mid, step); return; }   // já vencida: nunca recomeça a batalha
     if ((step === 'chegar' || step === 'vencer' || step === 'assistir') && ENC[n] && !enc && dist(p, spot(n)) < (n === 13 ? 160 : 110)) {
       if (!hero() && n !== 13) { if (hintT <= 0) { hintT = 6; toast('💍 Transforme-se para enfrentar o que está aqui.', 2600); } return; }
       if (G.Damage && G.Damage.count() > 0) { if (hintT <= 0) { hintT = 6; toast('🌀 Paris ainda está danificada (' + G.Damage.count() + ' estrago' + (G.Damage.count() === 1 ? '' : 's') + '). Use a Restauração antes desta batalha.', 3400); } return; }   // Parte 11
@@ -19221,6 +19712,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
       return null;
     },
     fighting: function () { return on() && !!enc; },
+    clearWon: function (n) { if (on() && A().won) { delete A().won[n]; } },   // "Repetir fase": a batalha volta a acontecer
     wreckAt: function (x, y, r) {   // Parte 11: projétil dos transformados acertando uma construção/objeto
       if (!on() || !enc || !G.Damage || !G.World.objects) return false;
       if (r) { wreck(x, y, r); return true; }
@@ -19404,6 +19896,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
   }
   function villainStop(n, dur) {   // o Beija-flor adversário usa o Furo de tempo (a partir da fase 13): congela a jogadora também
     if (ts || !battle()) return false;
+    if (!G.Powers.affect(S.player, { power: 'br3', effect: 'freeze' })) { burst(S.player.x, S.player.y - 34, ['#3b82f6', '#bfdbfe'], 18); return true; }   // Determinação repele o Furo de tempo
     const p = S.player, a = Math.random() * TAU;
     ts = { t: dur || TSP.dur, max: dur || TSP.dur, villain: true, by: n, sx: p.x + Math.cos(a) * 90, sy: p.y + Math.sin(a) * 70 };
     G.Input.clear(); S.player.vx = 0; S.player.vy = 0; S.player.moving = false;
@@ -20056,6 +20549,19 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
     ctx.restore();
   }
   let hbDone = false, hbTrail = [];
+  /* animal de luz que gira em volta da personagem e entra na joia (mesmo efeito do beija-flor / das joias principais) */
+  function orbitAnimal(ctx, id, p, x, y, tr) {
+    const AT = G.AnimalTransform, e = AT && AT.entry(id);
+    if (!e || p < 0.05 || p > SW + 0.02) return;
+    const k = clamp((p - 0.05) / (SW - 0.05)), R = 46 * (1 - smooth(0.62, 1, k)), a = k * 16, bx = x + Math.cos(a) * R, by = y - 36 + Math.sin(a) * R * 0.55 - Math.sin(k * Math.PI) * 10;
+    tr.push({ x: bx, y: by }); if (tr.length > 14) tr.shift();
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    tr.forEach(function (q, i) { ctx.globalAlpha = i / tr.length * 0.5; ctx.fillStyle = i % 2 ? e.c1 : e.c2; ctx.beginPath(); ctx.arc(q.x, q.y, 1.6 + i * 0.12, 0, TAU); ctx.fill(); });
+    ctx.restore();
+    const q0 = tr[Math.max(0, tr.length - 3)], ang = Math.atan2(by - q0.y, bx - q0.x);
+    AT.draw(ctx, e, bx, by, ang, 1.5 * (1 - 0.45 * smooth(0.8, 1, k)), smooth(0, 0.1, k) * (1 - smooth(0.93, 1, k)));
+  }
+  let cpTrail = [], frTrail = [];
   G.Transform.registerAnimation('brHummingbird', {
     duration: 2.5, swapAt: SW, fx: baseFx,
     update: function (p, dt, x, y) {
@@ -20093,7 +20599,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
   G.Transform.registerAnimation('brCapybara', {
     duration: 2.5, swapAt: SW, fx: baseFx,
     update: function (p, dt, x, y) {
-      if (p < 0.01) cpDone = false;
+      if (p < 0.01) { cpDone = false; cpTrail = []; }
       if (p < SW) { if (Math.random() < 0.55) Fx.spawn({ x: x + rnd(-40, 40), y: y - rnd(0, 8), vx: rnd(-8, 8), vy: -rnd(30, 60), life: 1, size: rnd(1.6, 2.6), shape: Math.random() < 0.4 ? 'leaf' : 'dot', spin: 2, color: pick(['#fbbf24', '#f59e0b', '#fde68a', '#84cc16']), drag: 0.4 }); }
       else if (!cpDone) { cpDone = true; BURST.br2(x, y - 50, 70); }
     },
@@ -20112,13 +20618,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
       ctx.restore();
     },
     drawFront: function (ctx, p, x, y) {
-      if (p < 0.25 || p > SW + 0.04) return;
-      const k = smooth(0.25, SW, p), oy = y - 150 + k * 92, bob = p > SW ? 0 : Math.sin(p * 40) * 1.2;   // a laranjinha cai e pousa na cabeça
-      ctx.save(); ctx.translate(x, oy + bob); ctx.rotate(k * 6);
-      ctx.fillStyle = '#f97316'; ctx.beginPath(); ctx.arc(0, 0, 5.5, 0, TAU); ctx.fill();
-      ctx.fillStyle = 'rgba(255,255,255,0.5)'; ctx.beginPath(); ctx.arc(-1.8, -1.8, 1.6, 0, TAU); ctx.fill();
-      ctx.fillStyle = '#16a34a'; ctx.beginPath(); ctx.ellipse(2.4, -5.6, 3, 1.3, -0.5, 0, TAU); ctx.fill();
-      ctx.restore();
+      orbitAnimal(ctx, 'br2', p, x, y, cpTrail);   // a capivara de luz gira e entra na joia
     }
   });
 
@@ -20127,7 +20627,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
   G.Transform.registerAnimation('brFrog', {
     duration: 2.5, swapAt: SW, fx: baseFx,
     update: function (p, dt, x, y) {
-      if (p < 0.01) frDone = false;
+      if (p < 0.01) { frDone = false; frTrail = []; }
       if (p < SW) { if (Math.random() < 0.8) Fx.spawn({ x: x + rnd(-24, 24), y: y - rnd(0, 20), vx: rnd(-6, 6), vy: -rnd(40, 90), life: 0.9, size: rnd(1.4, 2.8), grow: 0.6, shape: 'dot', color: pick(['rgba(165,243,252,0.9)', 'rgba(103,232,249,0.8)', '#ecfeff']), drag: 0.3 }); }
       else if (!frDone) { frDone = true; BURST.br3(x, y - 36, 90); BURST.br3(x, y - 10, 30); }
     },
@@ -20146,7 +20646,8 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
       ctx.restore();
     },
     drawFront: function (ctx, p, x, y) {
-      if (p < 0.12 || p > SW + 0.01) return;
+      if (p > SW + 0.02) return;
+      if (p < 0.12) { orbitAnimal(ctx, 'br3', p, x, y, frTrail); return; }
       const k = smooth(0.12, 0.42, p), R = 6 + k * 28, wob = Math.sin(S.time * 9) * 1.6;   // esfera d'água que envolve e estoura
       ctx.save();
       const g = ctx.createRadialGradient(x - R * 0.3, y - 38 - R * 0.3, 2, x, y - 34, R + 2); g.addColorStop(0, 'rgba(236,254,255,0.35)'); g.addColorStop(0.8, 'rgba(103,232,249,0.22)'); g.addColorStop(1, 'rgba(34,211,238,0.6)');
@@ -20154,6 +20655,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
       ctx.strokeStyle = 'rgba(236,254,255,0.8)'; ctx.lineWidth = 1.4; ctx.stroke();
       ctx.fillStyle = 'rgba(255,255,255,0.7)'; ctx.beginPath(); ctx.ellipse(x - R * 0.4, y - 34 - R * 0.45, R * 0.18, R * 0.09, -0.6, 0, TAU); ctx.fill();
       ctx.restore();
+      orbitAnimal(ctx, 'br3', p, x, y, frTrail);   // o sapo de luz entra na joia
     }
   });
 
@@ -20876,7 +21378,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
 (function (G) {
   'use strict';
   const S = G.State, TAU = Math.PI * 2;
-  const PHOTO_DELAY = 18, LOSE_D = 330, RUN_SP = 125, PH_SP = 108;
+  const PHOTO_DELAY = 18, LOSE_D = 330, RUN_SP = 125, PH_SP = 108, MAX_HOPS = 4;   // MAX_HOPS: quantas pessoas correm contando a notícia em cadeia
   let ev = null, marg = false, bubbles = [], seq = 0, lastHero = null, lastRef = null;
 
   function rp() { return !(G.Mode && G.Mode.is('batalha')); }
@@ -20916,7 +21418,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
   function civil(n) { return n && !n.friend && !n.disguiser && !n.rvPhoto && !n.villain && !n.foe && !n.arcCtl && !n.arcScript && !(n.arcWatch && !n.arcWatch.rv); }
   function start(n) {
     if (ev || !rp() || !civil(n)) return;
-    ev = { ph: 'run', runner: n, t: 0, told: null };
+    ev = { ph: 'run', runner: n, t: 0, told: null, hops: 1, chain: [n] };
     hold(n, 'run');
     say(n, 'Preciso contar isso pra alguém!', 2.4);
     G.Dom.toast('😱 ' + n.name + ' descobriu sua identidade e saiu correndo para contar!', 3400);
@@ -20928,7 +21430,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
   });
   function nearestListener(r) {
     let best = null, bd = 1e9;
-    npcs().forEach(function (o) { if (o === r || !civil(o) || o.paralyzed) return; const d = dist(o, r); if (d < bd) { bd = d; best = o; } });
+    npcs().forEach(function (o) { if (o === r || !civil(o) || o.paralyzed || o.arcHidden || (G.Secret && G.Secret.knows(o)) || (ev && ev.chain && ev.chain.indexOf(o) >= 0)) return; const d = dist(o, r); if (d < bd) { bd = d; best = o; } });
     return best;
   }
   function driveRunner(n, dt) {
@@ -20950,8 +21452,14 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
   }
   function finishTell(n, o) {
     ev.telling = 0;
-    if (o) { if (G.Secret) G.Secret.learn(o, 'gossip', n.id); release(o); }
+    if (o && G.Secret) G.Secret.learn(o, 'gossip', n.id);
     release(n);
+    if (o && ev.hops < MAX_HOPS && civil(o)) {   // a notícia segue: quem acabou de ouvir sai correndo para contar a outra pessoa (até ~4 pessoas)
+      ev.hops++; ev.chain.push(o); ev.runner = o; ev.to = null; ev.t = 0; ev.ph = 'run';
+      hold(o, 'run'); say(o, 'Preciso contar isso pra alguém!', 2.4);
+      return;
+    }
+    if (o) release(o);
     ev.ph = 'wait'; ev.t = 0; ev.runner = null; ev.to = null;
     startMargot();
   }
@@ -22517,7 +23025,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
 })(window.Game = window.Game || {});
 
 /* NOITE: FECHAMENTOS E RECOLHIMENTO (Parte 27) — com o ciclo de dia e noite ligado, quando escurece a padaria e a escola fecham
-   (não dá para entrar; quem já está dentro pode sair) e os NPCs voltam para as suas casas (Caio e Dona Cida para as casas deles).
+   (não dá para entrar; quem já está dentro pode sair) e só os mais necessitados voltam para casa (cadeirante, mãe com bebê e Dona Cida); os outros seguem pela rua.
    Ao amanhecer tudo reabre e eles saem de novo. NPCs em situação especial (paralisados, transformados, controlados, Margot…) não são mexidos. */
 (function (G) {
   'use strict';
@@ -22587,6 +23095,8 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
     }
     return (n.nightHome = h);
   }
+  /* só os mais necessitados se recolhem à noite: cadeirante, mãe com bebê e a Dona Cida (os demais continuam pela rua) */
+  function needy(n) { return !!(n.chair || n.baby || (n.name === 'Dona Cida' && !batalha())); }
   function busy(n) {
     if (n.paralyzed || n.adore || n.exalt || n.villain || n.arcCtl || n.arcScript || n.arcWatch || n.foe || n.brCtl || n.brDodge || n.brFlee || n.disguiser || (n.lift || 0) > 0) return true;
     if (G.Jubilation && G.Jubilation.holds && G.Jubilation.holds(n)) return true;
@@ -22616,8 +23126,13 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
     const was = night; night = isNight();
     if (!G.NPC) return;
     G.NPC.list().forEach(function (n) {
+      if (n.adore) {   // Adoração trouxe o NPC: ele fica onde foi deixado e volta a andar normalmente (não é obrigado a ir para casa)
+        n.nightFree = true;
+        if (n.nightIn) { n.nightIn = false; n.arcHidden = false; n.nn = null; n.moving = false; }
+      }
+      if (!night && n.nightFree && !n.nightIn) n.nightFree = false;   // ao amanhecer, a rotina normal volta
       if (busy(n)) return;
-      if (night || n.stayHome) {
+      if ((night && needy(n) && !n.nightFree) || n.stayHome) {
         const h = homeOf(n); if (!h) return;
         if (n.nightIn) {
           const inHouse = h.house && h.house.inside && h.house.inside();      // dentro da casa dele: dá para vê-lo em casa
@@ -22958,7 +23473,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
       P.activate(id);                                          // abre o menu interno / inicia a técnica
     }, 230);
   }
-  function usable(s) { return s.implemented && (!G.Jewels || G.Jewels.isActive(s.id)); }   // joia carregada E ativada
+  function usable(s) { return s.implemented && !(G.Powerless && G.Powerless[s.id]) && (!G.Jewels || G.Jewels.isActive(s.id)); }   // joia carregada E ativada (sem poderes: sem item na roda)
   function build() {
     const list = P.all().filter(usable), n = list.length;
     wheel.querySelectorAll('.rw-item').forEach(function (e) { e.remove(); });
@@ -23080,6 +23595,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
     activate: { el: 'menu-activate', mod: function () { return G.ActivationUI; }, needs: 'any' },
     jubilation: { el: 'menu-jubilation', mod: function () { return G.JubilationUI; }, needs: 'hero' },
     intuition: { el: 'menu-intuition', mod: function () { return G.IntuitionUI; }, needs: 'hero' },
+    migration: { el: 'menu-migration', mod: function () { return G.MigrationUI; }, needs: 'hero' },
     pretension: { el: 'menu-pretension', mod: function () { return G.PretensionUI; }, needs: 'hero' },
     evolution: { el: 'menu-evolution', mod: function () { return G.EvolutionUI; }, needs: 'hero' },
     brpower: { el: 'menu-brpower', mod: function () { return G.BRPowerUI; }, needs: 'hero' },
@@ -23149,6 +23665,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
     G.ActivationUI.init(hudHero, $('menu-activate'));
     G.JubilationUI.init($('menu-jubilation'));
     G.IntuitionUI.init($('menu-intuition'));
+    G.MigrationUI.init($('menu-migration'));
     G.PretensionUI.init($('menu-pretension'));
     G.EvolutionUI.init($('menu-evolution'));
     G.AdorationUI.init($('menu-adoration'));
@@ -23214,7 +23731,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
     G.Transform.drawBack(ctx, p.x, p.y);
     G.Powers.drawBack(ctx, p.x, p.y);
     if (G.Unify) G.Unify.drawBack(ctx, p.x, p.y);
-    const I = G.Illusion, alpha = (I ? I.originalAlpha() : 1) * (G.Transmission ? G.Transmission.selfAlpha() : 1) * (G.Pretension ? G.Pretension.alpha() : 1) * (G.Evolution ? G.Evolution.playerAlpha() : 1), lk = (G.Transmission && G.Transmission.selfLook()) || (I && I.originalLook()) || (G.Unify ? G.Unify.look(S.displayLook) : S.displayLook);            // Ilusão: disfarce e invisibilidade só mudam o desenho
+    const I = G.Illusion, alpha = (I ? I.originalAlpha() : 1) * (G.Transmission ? G.Transmission.selfAlpha() : 1) * (G.Pretension ? G.Pretension.alpha() : 1) * (G.Evolution ? G.Evolution.playerAlpha() : 1) * (G.Migration ? G.Migration.alpha() : 1), lk = (G.Transmission && G.Transmission.selfLook()) || (I && I.originalLook()) || (G.Unify ? G.Unify.look(S.displayLook) : S.displayLook);            // Ilusão: disfarce e invisibilidade só mudam o desenho
     if (alpha > 0.01) {
       if (alpha < 0.999) { ctx.save(); ctx.globalAlpha = alpha; }
       const sc = G.Multiply ? G.Multiply.scale() : undefined;   // Multiplicação: todas as versões menores
@@ -23231,7 +23748,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
     G.Transform.drawFront(ctx, p.x, p.y);
   }
 
-  const POWER_MENUS = { creation: 1, destruction: 1, illusion: 1, protection: 1, action: 1, emotion: 1, sentiment: 1, multiply: 1, perfection: 1, transmission: 1, transmitted: 1, jubilation: 1, intuition: 1, pretension: 1, evolution: 1, adoration: 1, brpower: 1 };
+  const POWER_MENUS = { creation: 1, destruction: 1, illusion: 1, protection: 1, action: 1, emotion: 1, sentiment: 1, multiply: 1, perfection: 1, transmission: 1, transmitted: 1, jubilation: 1, intuition: 1, migration: 1, pretension: 1, evolution: 1, adoration: 1, brpower: 1 };
   function frame(now) {
     const dt = Math.min(0.05, (now - last) / 1000 || 0);
     last = now;
@@ -23270,7 +23787,7 @@ body.menu-open .pw-ball { opacity: 0; pointer-events: none !important; }
     if (G.Exaltation) G.Exaltation.drawGround(ctx);
     if (G.Combat) G.Combat.drawGround(ctx);
     if (G.Arc) G.Arc.drawGround(ctx);
-    G.World.drawObjects(ctx, G.Camera.cam, S.player, drawPlayer, dt, (G.Illusion ? G.Illusion.actors(ctx) : []).concat(G.Protection ? G.Protection.actors(ctx) : [], G.NPC ? G.NPC.actors(ctx) : [], G.Emotion ? G.Emotion.actors(ctx) : [], G.Multiply ? G.Multiply.actors(ctx) : [], G.Perfection ? G.Perfection.actors(ctx) : [], G.Transmission ? G.Transmission.actors(ctx) : [], G.Guardian ? G.Guardian.actors(ctx) : [], G.Evolution ? G.Evolution.actors(ctx) : [], G.Adoration ? G.Adoration.actors(ctx) : [], G.PowersBR ? G.PowersBR.actors(ctx) : []), focus);
+    G.World.drawObjects(ctx, G.Camera.cam, S.player, drawPlayer, dt, (G.Illusion ? G.Illusion.actors(ctx) : []).concat(G.Protection ? G.Protection.actors(ctx) : [], G.NPC ? G.NPC.actors(ctx) : [], G.Emotion ? G.Emotion.actors(ctx) : [], G.Multiply ? G.Multiply.actors(ctx) : [], G.Perfection ? G.Perfection.actors(ctx) : [], G.Transmission ? G.Transmission.actors(ctx) : [], G.Guardian ? G.Guardian.actors(ctx) : [], G.Evolution ? G.Evolution.actors(ctx) : [], G.Adoration ? G.Adoration.actors(ctx) : [], G.Migration ? G.Migration.actors(ctx) : [], G.PowersBR ? G.PowersBR.actors(ctx) : []), focus);
     if (G.Emotion) G.Emotion.drawOverlay(ctx);
     if (G.Perfection) G.Perfection.drawOverlay(ctx);
     if (G.Transmission) G.Transmission.drawOverlay(ctx);
